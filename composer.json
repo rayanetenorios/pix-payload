@@ -1,0 +1,23 @@
+{
+    "name": "rayanetenorios/pix-payload",
+    "description": "Gerador de payload Pix BR Code (EMV) para criação de QR Code de pagamento.",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Rayanetenorios\\Pix\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Rayane Tenório",
+            "email": "rayane@alvoz.com.br"
+        }
+    ],
+    "require": {
+        "php": ">=7.4"
+    },
+    "minimum-stability": "stable",
+    "keywords": ["pix", "qrcode", "brcode", "pagamento", "payload"],
+    "homepage": "https://github.com/rayanetenorios/pix-payload"
+}
