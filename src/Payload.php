@@ -6,12 +6,24 @@ class Payload
 {
     private $pixKey;
     private $txid;
+    private $amount;
 
     public function setPixKey(string $key): self { $this->pixKey = $key; return $this; }
-    public function setTxid(string $txid): self { $this->txid = $txid; return $this; }
+    public function setTxid(?string $txid): self { $this->txid = $txid; return $this; }
+    
+    public function withTxid(): self
+    {
+        $this->txid = strtoupper(substr(bin2hex(random_bytes(13)), 0, 25));
+        return $this;
+    }
+
+    public function setAmount(?float $amount): self { 
+        $this->amount = $amount !== null ? number_format($amount, 2, '.', '') : null; 
+        return $this; 
+    }
 
     private function formatValue(string $id, string $value): string {
-        $len = strlen($value); // conta bytes
+        $len = strlen($value);
         return $id . str_pad($len, 2, '0', STR_PAD_LEFT) . $value;
     }
 
@@ -42,6 +54,7 @@ class Payload
 
         $merchantCategory = $this->formatValue('52', '0000');
         $currency = $this->formatValue('53', '986');
+        $amount = $this->amount !== null ? $this->formatValue('54', $this->amount) : '';
         $country = $this->formatValue('58', 'BR');
         $name = $this->formatValue('59', 'N');
         $city = $this->formatValue('60', 'C');
@@ -55,6 +68,7 @@ class Payload
             $merchantAccountInfo .
             $merchantCategory .
             $currency .
+            $amount .
             $country .
             $name .
             $city .
